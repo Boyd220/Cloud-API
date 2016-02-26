@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <link rel="stylesheet" type="text/css" href="css/main.css">
+      <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="https://maps.googleapis.com/maps/api/js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <title>Cloud API</title>
+  </head>
+  <body ng-app="sampleApp"> 
+ 
+    <div class="container">
+        <div class="row">
+        <div class="col-md-3">
+            <ul class="nav navbar-inverse navbar-left navbar-nav pagination-lg pagination-sm pagination-md menubar" >
+                <li><a href="#Home">Home</a></li>
+                <li><a href="#Map">Iets</a></li>
+                <li><a href="#Table">Nog iets</a></li>
+            </ul>           
+        </div>
+        <div class="col-md-9">
+            <div ng-view></div>
+        </div>
+        </div>
+    </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <script src="app3.js"></script>
+  </body>
+</html>
