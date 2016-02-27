@@ -47,10 +47,10 @@ var map;
 //The latitude and longitude of the center of the map.
 var festivalMapCenter = new google.maps.LatLng(51, 4.4029);
 //The degree to which the map is zoomed in. This can range from 0 (least zoomed) to 21 and above (most zoomed).
-var festivalMapZoom = 9;
+var festivalMapZoom = 8;
 //The max and min zoom levels that are allowed.
-var festivalMapZoomMax = 12;
-var festivalMapZoomMin = 6;
+var festivalMapZoomMax = 13;
+var festivalMapZoomMin = 8;
 
 //These options configure the setup of the map. 
 var festivalMapOptions = { 
