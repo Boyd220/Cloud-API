@@ -75,7 +75,7 @@ var markerPositionDour = new google.maps.LatLng(50.39583, 3.77792);
 var markerIconDour = {
  url: 'images/dour.png',
  //The size image file.
- size: new google.maps.Size(225, 120),
+ size: new google.maps.Size(225, 200),
  //The point on the image to measure the anchor from. 0, 0 is the top left.
  origin: new google.maps.Point(0, 0),
  //The x y coordinates of the anchor point on the marker. e.g. If your map marker was a drawing pin then the anchor would be the tip of the pin.
