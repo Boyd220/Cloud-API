@@ -1,10 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-      <link rel="stylesheet" type="text/css" href="css/main.css">
-      <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <script src="https://maps.googleapis.com/maps/api/js"></script>
-<!-- Latest compiled and minified CSS -->
+  <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
 <!-- Optional theme -->
@@ -12,26 +9,20 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-    <title>Cloud API</title>
+        <link rel="stylesheet" type="text/css" href="css/main.css">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Cloud API's</title>
   </head>
-  <body ng-app="sampleApp"> 
- 
-    <div class="container">
-        <div class="row">
-        <div class="col-md-3">
-            <ul class="nav navbar-inverse navbar-left navbar-nav pagination-lg pagination-sm pagination-md menubar" >
-                <li><a href="#Home">Home</a></li>
-                <li><a href="#Map">Iets</a></li>
-                <li><a href="#Table">Nog iets</a></li>
-            </ul>           
-        </div>
-        <div class="col-md-9">
-            <div ng-view></div>
-        </div>
-        </div>
-    </div>
-    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+  <body>
+      <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+      <div id="map"></div>
+
+
+
+</div>
     <script src="app3.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1RW7LQHfZwuwFw7FOV4jDjnaBFA1DIQo&libraries=places&callback=initAutocomplete"
+         async defer></script>
   </body>
 </html>
