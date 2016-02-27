@@ -137,7 +137,7 @@ markerGMM = new google.maps.Marker({
  zIndex:102
 });
 
-var markerPositionPKP = new google.maps.LatLng(50.9515, 5.3667);
+var markerPositionPKP = new google.maps.LatLng(50.93069, 5.33248);
 
 
 var markerIconPKP = {
@@ -205,7 +205,7 @@ markerReggae = new google.maps.Marker({
  zIndex:102
 });
 
-var markerPositionRW = new google.maps.LatLng(50.95,  4.7167);
+var markerPositionRW = new google.maps.LatLng(50.952207,  4.716948);
 
 
 var markerIconRW= {
