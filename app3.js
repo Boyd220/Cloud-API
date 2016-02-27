@@ -5,16 +5,69 @@
       // This example requires the Places library. Include the libraries=places
       // parameter when you first load the API. For example:
       // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+var style_festival = [
+  {
+    "featureType": "poi",
+    "stylers": [
+      { "lightness": 11 },
+      { "color": "#fff000" },
+      { "visibility": "on" }
+    ]
+  },{
+    "featureType": "road",
+    "stylers": [
+      { "color": "#000000" },
+      { "visibility": "on" }
+    ]
+  },{
+    "featureType": "landscape",
+    "stylers": [
+      { "color": "#ff0000" },
+      { "visibility": "on" }
+    ]
+  },{
+    "featureType": "water",
+    "stylers": [
+      { "color": "#37eb17" },
+      { "hue": "#005eff" },
+      { "visibility": "on" }
+    ]
+  }
+];
+
+
+//Create the variable for the main map itself.
+var map;
+
 
       function initAutocomplete() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: 51, lng: 4.4029},
-          zoom: 9,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        });
+        var styled_festival = new google.maps.StyledMapType(style_festival, {name: "Festival style"});
 
-        // Create the search box and link it to the UI element.
-        var input = document.getElementById('pac-input');
+//Create the variables that will be used within the map configuration options.
+//The latitude and longitude of the center of the map.
+var festivalMapCenter = new google.maps.LatLng(51, 4.4029);
+//The degree to which the map is zoomed in. This can range from 0 (least zoomed) to 21 and above (most zoomed).
+var festivalMapZoom = 9;
+//The max and min zoom levels that are allowed.
+var festivalMapZoomMax = 12;
+var festivalMapZoomMin = 6;
+
+//These options configure the setup of the map. 
+var festivalMapOptions = { 
+      center: festivalMapCenter, 
+          zoom: festivalMapZoom,
+      maxZoom:festivalMapZoomMax,
+      minZoom:festivalMapZoomMin,
+      //Turn off the map controls as we will be adding our own later.
+      panControl: false,
+      mapTypeControl: false,
+       mapTypeControlOptions: {
+        mapTypeIds: [ 'map_styles_festival']
+       }
+};
+map = new google.maps.Map(document.getElementById("map"), festivalMapOptions); 
+
+var input = document.getElementById('pac-input');
         var searchBox = new google.maps.places.SearchBox(input);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
@@ -68,8 +121,17 @@
           map.fitBounds(bounds);
         });
 
+//Assigning the two map styles defined above to the map.
+map.mapTypes.set('map_styles_festival', styled_festival);
+map.setMapTypeId('map_styles_festival');
 
-var markerPositionDour = new google.maps.LatLng(50.39583, 3.77792);
+//Calls the function below to load up all the map markers and pop-up boxes.
+loadMarkers();
+        
+      }
+
+      function loadMarkers(){
+        var markerPositionDour = new google.maps.LatLng(50.39583, 3.77792);
 
 
 var markerIconDour = {
@@ -238,6 +300,6 @@ markerRW = new google.maps.Marker({
  //sets the z-index of the map marker.
  zIndex:102
 });
-      }
+      };
 
 
