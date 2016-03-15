@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <link rel="stylesheet" type="text/css" href="css/main.css">
+        <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+  <!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+              <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+
+    <title>Find your party</title>
+
+  </head>
+  <body ng-app="sampleApp"> 
+ 
+    <div class="container">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+            <a class="navbar-brand" rel="home" title="Feestjes">Feestapp</a>
+                <li><a href="#Home">Home</a></li>
+                <li><a href="#Map">Partymap</a></li>
+            </ul>           
+        </div>
+        </div>
+        </nav>
+        <div class="col-md-9">
+            <div ng-view></div>
+        </div>
+        </div>
+        
+  <!--All used libraries-->
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+  <script src="https://code.angularjs.org/1.2.16/angular-route.min.js"></script>
+  <script src="js/angular-animate.min.js" ></script>
+  <script src="js/toaster.js"></script>
+  <script src="js/ui-bootstrap-tpls-0.11.2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js" integrity="sha384-VI5+XuguQ/l3kUhh4knz7Hxptx47wpQbVRDnp8v7Vvuhzwn1PEYb/uvtH6KLxv6d" crossorigin="anonymous"></script>
+  <script type="text/javascript" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js" ></script>
+  <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+  <script src="js/ie10-viewport-bug-workaround.js"></script>
+<!--Local javascript files-->
+    <script src="app.js"></script>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1RW7LQHfZwuwFw7FOV4jDjnaBFA1DIQo&libraries=places"
+         async defer></script>
+  </body>
+</html>
