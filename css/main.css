@@ -31,17 +31,17 @@ background-size: cover;
 
 	.angulardata
 	{
+		
 		font-size: 16px;
 		font-style: normal;
 		font-variant: normal;
 		font-weight: 250;
 		line-height: 13px;
 				color: black;
-	}
+}
 
 	.menuBar{
-		font-size: 16px;
-		font-style: normal;
+			
 		font-variant: normal;
 		font-weight: 250;
 		line-height: 13px;
@@ -93,8 +93,7 @@ background-size: cover;
 
 	.angulardata
 	{
-
-		font-size: 16px;
+	
 		font-style: normal;
 		font-variant: normal;
 		font-weight: 250;
@@ -103,12 +102,17 @@ background-size: cover;
 	}
 
 .menuBar{
-
+		
 		font-size: 16px;
 		font-style: normal;
 		font-variant: normal;
 		font-weight: 250;
 		line-height: 13px;
+		    left: 0;
+    position:absolute;
+    text-align:center;
+    top: 30px;
+    width: 100%
 }
 	.table
 	{
@@ -121,6 +125,12 @@ background-size: cover;
 	{
 	height: 30%;
 	} 
+		.active{
+    display: inline;
+}
+.press{
+    display: none;
+} 
 }
 /* Small devices (tablets, 768px and up) */
 @media (min-width: 992px) {
@@ -156,7 +166,7 @@ background-size: cover;
 
 	.angulardata
 	{
-	
+		
 		font-size: 16px;
 		font-style: normal;
 		font-variant: normal;
@@ -166,7 +176,7 @@ background-size: cover;
 	}
 
 	.menuBar{
-		
+				
 		font-size: 16px;
 		font-style: normal;
 		font-variant: normal;
@@ -186,6 +196,12 @@ background-size: cover;
 	{
 	height: 40%;
 	} 
+		.active{
+    display: inline;
+}
+.press{
+    display: none;
+} 
 }
 
 /* Medium devices (desktops, 992px and up) */
@@ -251,7 +267,13 @@ background-size: cover;
 	#slideShow
 	{
 	height: 100%*0.8;
-	} 
+	}
+	.active{
+    display: inline;
+}
+.press{
+    display: none;
+} 
 }
 
 /*large devices not verified in @media, we just use this*/
@@ -294,6 +316,7 @@ background-size: cover;
 		font-weight: 500;
 		line-height: 26.4px;
 		color: black;
+		    left: 0;
 	}
 
 	.table
@@ -308,14 +331,15 @@ background-size: cover;
 	{
 	height: 100%;
 	} 
+	.active{
+    display: inline;
+}
+.press{
+    display: none;
+} 
+
 }
 
-body{
-	padding-top: 51px;
-	  font-family: "Open Sans";
-}
-
-/* ng-cloak */
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng.ng-cloak {
     display: none;
 }

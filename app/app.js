@@ -8,7 +8,6 @@ sampleApp.config(['$routeProvider',
     $routeProvider.
       when('/Home', {
         templateUrl: 'view/home.php',
-        controller: 'mainController'
     }).
       when('/Map', {
         templateUrl: 'view/map.php',
@@ -22,8 +21,13 @@ sampleApp.config(['$routeProvider',
  
 sampleApp.controller('mainController', function($scope) {
      
-     
+     $scope.showDiv = '1';
+
+    $scope.toggleShow = function(){
+       $scope.showDiv = !$scope.showDiv;
+    } 
 });
+
 
  
 sampleApp.controller('mapController', function($scope) {

@@ -1,43 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="sampleApp">
   <head>
-      <link rel="stylesheet" type="text/css" href="css/main.css">
-        <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Find your party</title> 
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
-
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-
-              <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-
-    <title>Find your party</title>
-
-  </head>
-  <body ng-app="sampleApp"> 
- 
-    <div class="container">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-
-    <div class="collapse navbar-collapse">
-      <ul class="nav navbar-nav">
-            <a class="navbar-brand" rel="home" title="Feestjes">Feestapp</a>
-                <li><a href="#Home">Home</a></li>
-                <li><a href="#Map">Partymap</a></li>
-            </ul>           
-        </div>
-        </div>
-        </nav>
-        <div class="col-md-9">
-            <div ng-view></div>
-        </div>
-        </div>
         
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+  </head>
+
+  <body ng-cloak="">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+
+          <div ng-controller="mainController" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <a class="navbar-brand" rel="home" title="Feestjes">Feestapp</a>
+                <li><a ng-click="toggleShow()" ng-show="showDiv" class="active press" href="#Home">Home</a></li>
+                <li><a ng-click="toggleShow()" ng-hide="showDiv" class="active press" href="#Map">Partymap</a></li>
+            </ul>           
+          </div>
+        </div>
+    </nav>
+
+      <div class="col-md-9 container">
+        <div ng-view></div>       
+      </div>
+  </body>
   <!--All used libraries-->
   <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
   <script src="https://code.angularjs.org/1.2.16/angular-route.min.js"></script>
@@ -50,9 +52,8 @@
   <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
   <script src="js/ie10-viewport-bug-workaround.js"></script>
 <!--Local javascript files-->
-    <script src="app.js"></script>
+    <script src="app/app.js"></script>
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1RW7LQHfZwuwFw7FOV4jDjnaBFA1DIQo&libraries=places"
          async defer></script>
-  </body>
 </html>
