@@ -13,6 +13,11 @@ sampleApp.config(['$routeProvider',
         templateUrl: 'view/map.php',
         controller: 'mapController'
       }).
+       when('/Login', {
+        templateUrl: 'view/login.html'
+      }).
+        when('/Premium', {
+        templateUrl: 'premium.php'}).
       otherwise({
         redirectTo: '/Home'
       });
