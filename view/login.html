@@ -10,34 +10,31 @@
 
 <button id="logout">Logout</button>
 
+
   <script>
-  	 var myDataRef = new Firebase('https://crackling-torch-6492.firebaseio.com/');
+     var myDataRef = new Firebase('https://crackling-torch-6492.firebaseio.com/');
 myDataRef.onAuth(authDataCallback);
     $("#logout").on("click", function(){
       myDataRef.unauth();
       alert("Logged out");
     })
-
       $('#passwordInput').keypress(function (e) {
         if (e.keyCode == 13) {
           var email = $('#emailInput').val();
           var password = $('#passwordInput').val();
           myDataRef.authWithPassword({email: email, password: password}, 
-
-          	function (error, authData){         	  
-			if (error) 
-			{
-				console.log("Error creating user:", error);
-			} 
-			else 
-			{
-			console.log("successfully Authenticated", authData);
-			}
-
+            function (error, authData){             
+      if (error) 
+      {
+        console.log("Error creating user:", error);
+      } 
+      else 
+      {
+      console.log("successfully Authenticated", authData);
+      }
           });
         }      
       });
-
             function authDataCallback(authData) {
   if (authData) {
     console.log("User " + authData.uid + " is logged in with " + authData.provider);
@@ -46,7 +43,6 @@ myDataRef.onAuth(authDataCallback);
     console.log("User is logged out");
   }
 }
-
 var isNewUser = true;
 myDataRef.onAuth(function(authData) {
   if (authData && isNewUser) {
@@ -56,7 +52,6 @@ myDataRef.onAuth(function(authData) {
       provider: authData.provider,
       name: getName(authData)
     });
-
     console.log(authData);
   }
 });
@@ -66,7 +61,6 @@ function getName(authData) {
      case 'password':
        return authData.password.email.replace(/@.*/, '');
   }
-
   console.log(authData);
 }
   </script>
