@@ -16,6 +16,9 @@ sampleApp.config(['$routeProvider',
        when('/Login', {
         templateUrl: 'view/login.html'
       }).
+      when('/Register', {
+        templateUrl: 'view/register.html'
+      }).
         when('/Premium', {
         templateUrl: 'premium.php'}).
       otherwise({

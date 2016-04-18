@@ -1,6 +1,6 @@
 <?php
   require_once('api/config.php');
-
+try{
   $token  = $_POST['stripeToken'];
 
   $customer = \Stripe\Customer::create(array(
@@ -13,7 +13,9 @@
       'amount'   => 1000,
       'currency' => 'usd'
   ));
-
+}
+catch (Exception $e) {
+    $error = $e->getMessage();
+  }
   echo '<h1>Successfully bought premium</h1>';
-  echo "<button href="#Map">Return to website</button>";
 ?>
