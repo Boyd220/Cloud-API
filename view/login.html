@@ -21,7 +21,7 @@ myDataRef.onAuth(authDataCallback);
       $('#passwordInput').keypress(function (e) {
         if (e.keyCode == 13) {
           var email = $('#emailInput').val();
-          var password = $('#passwordInput').val();
+          var password = $('#passwordInput').val(); 
           myDataRef.authWithPassword({email: email, password: password}, 
             function (error, authData){             
       if (error) 
@@ -50,10 +50,16 @@ myDataRef.onAuth(function(authData) {
     // use them in Security and Firebase Rules, and show profiles
     myDataRef.child("users").child(authData.uid).set({
       provider: authData.provider,
-      name: getName(authData)
+      name: getName(authData),
+      u_role: 1
     });
     console.log(authData);
   }
+var ref = new Firebase("https://crackling-torch-6492.firebaseio.com/users");
+  ref.on("value", function(snapshot) {
+  console.log(snapshot.val());
+  return snapshot;
+});
 });
 // find a suitable name based on the meta info given by each provider
 function getName(authData) {
@@ -61,6 +67,7 @@ function getName(authData) {
      case 'password':
        return authData.password.email.replace(/@.*/, '');
   }
-  console.log(authData);
+  alert(authData.name);
 }
-  </script>
+
+  </script>}

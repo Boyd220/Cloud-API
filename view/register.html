@@ -7,7 +7,7 @@
   <input type="password" id="passwordInput">
   </div>
 </form>
-<div id="id" class="fb-login-button" data-max-rows="1" data-size="medium" data-show-faces="false" data-auto-logout-link="false"></div>
+<button id="id">FB</button>
 
   <script>
   	 var myDataRef = new Firebase('https://crackling-torch-6492.firebaseio.com/');
@@ -37,7 +37,7 @@ myDataRef.authWithOAuthPopup("facebook", function(error, authData) {
 			} 
 			else 
 			{
-			console.log("Successfully created user account with uid:", userData.uid);
+			console.log("Successfully created user account with uid:", userData.email);
 			alert("Succesvol account aangemaakt.");
 
 			}
