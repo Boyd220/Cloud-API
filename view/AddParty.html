@@ -1,0 +1,60 @@
+<h1 style="text-align: center;">Add a new party</h1>
+<h1>{{json}}</h1>
+<form style="margin-right: auto; margin-left: auto;" name="feestjes_form" class="form-horizontal" role="form" novalidate>
+        <input type="date" class="form-control" id="datum" name="datum" placeholde="DD/MM/YYYY"/> 
+
+
+            <form-element label="FEESTNAAM" mod="feestjes">
+            
+                <input type="text" class="form-control" name="FeestNaam" placeholder="FEESTNAAM" id="feestNaam">
+                 <small class="errorMessage" ng-show="feestjes_form.feestNaam.$dirty &&feestjes_form.feestNaam.$invalid">Vul een naam in.</small>
+
+            </form-element>
+
+            <form-element label="ORGANISATOR" mod="feestjes">
+                <input type="text" class="form-control" name="organisator" placeholder="ORGANISATOR" id="organisator">
+                 <small class="errorMessage" ng-show="feestjes_form.organisator.$dirty &&feestjes_form.organisator.$invalid">Vul een organisator in.</small>
+            </form-element>
+
+                <table>
+      <tbody>
+        <tr>
+        <td>
+          <br><br>
+          <table border=0 bgcolor=#A0FFA0 width=100%>
+            <tr>
+              <td valign=top>Longitude:</td>
+              <td><input size=10 type=text value="4.4029 " id="longval"><br></td>
+            </tr>
+            <tr>
+              <td valign=top>Latitude:</td>
+              <td><input size=10 type=text value="51.2192" id="latval"><br></td>
+            </tr>
+            <tr>
+              <td colspan=2 align=center>
+                <input type=button id="partyAdd" value="Add party" ng-click="if_gmap_loadpicker();">
+              </td>
+            </tr>
+          </table>
+        </td>
+        <td id="maparea" style="background-color: #E0E0E0;">
+          <div id="mapitems" style="width: 480px; height: 540px"></div>
+        </td>
+        </tr>
+      </tbody>
+    </table>
+        </form>
+
+            <div id="authorize-div" style="display: none">
+      <span>Authorize access to Google Calendar API</span>
+      <!--Button for the user to click to initiate auth sequence -->
+      <button id="authorize-button" onclick="handleAuthClick(event)">
+        Authorize
+      </button>
+    </div>
+    <pre id="output"></pre>
+          <button id="add-button" onclick="addEvent()">
+        Add event
+      </button>
+  
+

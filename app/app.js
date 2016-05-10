@@ -361,6 +361,7 @@ initAutocomplete();
 sampleApp.controller('partyController', function($scope) {
 
  var myDataRef = new Firebase('https://crackling-torch-6492.firebaseio.com/');
+function addP(Adresje){
 $("#partyAdd").on("click", function(){
           var uid = Math.floor((Math.random() * 1000000000000) + 1);
           var feestNaam = $('#feestNaam').val();
@@ -368,13 +369,20 @@ $("#partyAdd").on("click", function(){
           var Latitude = $('#longval').val();
           var Longitude = $('#latval').val();
           var Datum =$('#datum').val();
+          var Adres = Adresje;
+          alert(Adresje);
 
     myDataRef.child("feestjes").child(uid).set({
+      details:{
       name: feestNaam,
       organisor: organisator,
       lat: Latitude,
       lng: Longitude,
-      date:Datum
+      date:Datum,
+      adres: Adres
+
+    }
+    
     }, function(error, partyData){;
           if (error) 
       {
@@ -399,8 +407,37 @@ $("#partyAdd").on("click", function(){
                 return json;
          })();
 $scope.json = json;
+}
 
 console.log($scope.json);
+
+
+      function geocodeLatLng(geocoder, map, infowindow) {
+
+        var input = document.getElementById('latval').value + "," + document.getElementById('longval').value;
+        var latlngStr = input.split(',', 2);
+        var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])}
+        geocoder.geocode({'location': latlng}, function(results, status) {
+          if (status === google.maps.GeocoderStatus.OK) {
+            if (results[1]) {
+              map.setZoom(11);
+              var marker = new google.maps.Marker({
+                position: latlng,
+                map: map
+              });
+              infowindow.setContent(results[1].formatted_address);
+              infowindow.open(map, marker);
+               a= results[1].formatted_address;
+              addP(a);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+            window.alert('Geocoder failed due to: ' + status);
+          }
+        });
+      }
+
 
 
 
@@ -413,7 +450,13 @@ var def_longval = 4.4029;
 var def_latval = 51.2192;
 
 function if_gmap_init()
-{
+{ var geocoder = new google.maps.Geocoder;
+        var infowindow = new google.maps.InfoWindow;
+
+        document.getElementById('partyAdd').addEventListener('click', function() {
+          geocodeLatLng(geocoder, gmapdata, infowindow);
+        });
+      
   var curpoint = new google.maps.LatLng(def_latval,def_longval);
 
   gmapdata = new google.maps.Map(document.getElementById("mapitems"), {
@@ -432,11 +475,9 @@ function if_gmap_init()
     document.getElementById("longval").value = event.latLng.lng().toFixed(6);
     document.getElementById("latval").value = event.latLng.lat().toFixed(6);
     gmapmarker.setPosition(event.latLng);
-    if_gmap_updateInfoWindow();
   });
 
   google.maps.event.addListener(gmapmarker, 'click', function() {
-    if_gmap_updateInfoWindow();
     infoWindow.open(gmapdata, gmapmarker);
   });
 
@@ -474,17 +515,9 @@ function if_gmap_loadpicker()
   gmapdata.setCenter(curpoint);
   //gmapdata.setZoom(zoomval);
 
-  if_gmap_updateInfoWindow();
   return false;
 } // end of if_gmap_loadpicker
 
-
-
-function if_gmap_updateInfoWindow()
-{
-  infoWindow.setContent("Longitude: "+ gmapmarker.getPosition().lng().toFixed(6)+"<br>"+"Latitude: "+ gmapmarker.getPosition().lat().toFixed(6));
-} // end of if_gmap_bindInfoWindow
-    
 if_gmap_init();
   
 });

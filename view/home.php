@@ -7,3 +7,8 @@
         <p> Maak een account aan en zoek feestjes. Of maak feestjes als je een organisator bent! </p>
 </div>
 </div>
+
+<ul id="events-upcoming">
+</ul>
+<ul id="events-past">
+</ul>
