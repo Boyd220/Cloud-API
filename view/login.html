@@ -1,73 +1,21 @@
+<h1 style="text-align: center;">Register your account</h1>
+<form style="text-align: center; margin-top: 3em;" name="loginForm">
+  <label for="emailInput1">Email:</label>
+  <input type="text" id="emailInput1"><br>
+  <div style="margin-top: 1em;">
+  <label for="passwordInput1">Password:</label>
+  <input type="password" id="passwordInput1">
+  </div>
+</form>
+
 <h1 style="text-align: center;">Log in with an existing account</h1>
 <form style="text-align: center; margin-top: 3em;" name="loginForm">
   <label for="emailInput">Email:</label>
   <input type="text" id="emailInput"><br>
-  <div style="margin-top: 1em;">
-  <label for="passwordInput">Password:</label>
+  <label style="margin-top: 1em" for="passwordInput">Password:</label>
   <input type="password" id="passwordInput">
-  </div>
 </form>
-
-<button id="logout">Logout</button>
-
-
-  <script>
-     var myDataRef = new Firebase('https://crackling-torch-6492.firebaseio.com/');
-myDataRef.onAuth(authDataCallback);
-    $("#logout").on("click", function(){
-      myDataRef.unauth();
-      alert("Logged out");
-    })
-      $('#passwordInput').keypress(function (e) {
-        if (e.keyCode == 13) {
-          var email = $('#emailInput').val();
-          var password = $('#passwordInput').val(); 
-          myDataRef.authWithPassword({email: email, password: password}, 
-            function (error, authData){             
-      if (error) 
-      {
-        console.log("Error creating user:", error);
-      } 
-      else 
-      {
-      console.log("successfully Authenticated", authData);
-      }
-          });
-        }      
-      });
-            function authDataCallback(authData) {
-  if (authData) {
-    console.log("User " + authData.uid + " is logged in with " + authData.provider);
-    alert("User " + authData.uid + " is logged in with " + authData.provider);
-  } else {
-    console.log("User is logged out");
-  }
-}
-var isNewUser = true;
-myDataRef.onAuth(function(authData) {
-  if (authData && isNewUser) {
-    // save the user's profile into the database so we can list users,
-    // use them in Security and Firebase Rules, and show profiles
-    myDataRef.child("users").child(authData.uid).set({
-      provider: authData.provider,
-      name: getName(authData),
-      u_role: 1
-    });
-    console.log(authData);
-  }
-var ref = new Firebase("https://crackling-torch-6492.firebaseio.com/users");
-  ref.on("value", function(snapshot) {
-  console.log(snapshot.val());
-  return snapshot;
-});
-});
-// find a suitable name based on the meta info given by each provider
-function getName(authData) {
-  switch(authData.provider) {
-     case 'password':
-       return authData.password.email.replace(/@.*/, '');
-  }
-  alert(authData.name);
-}
-
-  </script>}
+<div style="text-align: center; margin-top: 2em;">
+<button type="button" id="id" class="btn btn-primary">Login with Facebook</button><br>
+<button style="margin-top: 1em;" id="logout" type="button" class="btn btn-warning">Logout </button>
+</div>

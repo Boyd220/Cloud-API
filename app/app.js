@@ -14,13 +14,12 @@ sampleApp.config(['$routeProvider',
         controller: 'mapController'
       }).
        when('/Login', {
-        templateUrl: 'view/login.html'
-      }).
-      when('/Register', {
-        templateUrl: 'view/register.html'
+        templateUrl: 'view/login.html',
+        controller: 'userAuthController'
       }).
         when('/Premium', {
-        templateUrl: 'premium.php'
+        templateUrl: 'premium.php',
+        authenticate: true
       }).
         when('/AddParty',{
           templateUrl: 'view/AddParty.html',
@@ -34,7 +33,122 @@ sampleApp.config(['$routeProvider',
       });
 }]);
  
-  
+  sampleApp.controller('userAuthController', function($scope){
+
+    var myDataRef = new Firebase('https://crackling-torch-6492.firebaseio.com/');
+          $('#id').on('click', function(){
+myDataRef.authWithOAuthPopup("facebook", function(error, authData) {
+  if (error) 
+  {
+    console.log("Login Failed!", error);
+  } 
+  else 
+  {
+    console.log("Authenticated successfully with payload:", authData);
+  }
+});
+});
+          myDataRef.onAuth(authDataCallback);
+      $('#passwordInput1').keypress(function (e) {
+        if (e.keyCode == 13) {
+          var email = $('#emailInput1').val();
+          var password = $('#passwordInput1').val();
+          myDataRef.createUser({email: email, password: password}, 
+
+            function (error, userData){             
+      if (error) 
+      {
+        console.log("Error creating user:", error);
+      } 
+      else 
+      {
+      console.log("Successfully created user account with uid:", userData.email);
+      alert("Succesvol account aangemaakt.");
+
+      }
+
+          });
+        }      
+      });
+
+      function authDataCallback(authData) {
+  if (authData) {
+    console.log("User " + authData.uid + " is logged in with " + authData.provider);
+  } else {
+    console.log("User is logged out");
+  }
+}
+    $("#logout").on("click", function(){
+      myDataRef.unauth();
+      alert("Logged out");
+    })
+      $('#passwordInput').keypress(function (e) {
+        if (e.keyCode == 13) {
+          var email = $('#emailInput').val();
+          var password = $('#passwordInput').val(); 
+          myDataRef.authWithPassword({email: email, password: password}, 
+            function (error, authData){             
+      if (error) 
+      {
+        switch (error.code) {
+      case "INVALID_EMAIL":
+      alert("The specified user account email is invalid.");
+        console.log("The specified user account email is invalid.");
+        break;
+      case "INVALID_PASSWORD":
+      alert("The specified user account password is incorrect.");
+        console.log("The specified user account password is incorrect.");
+        break;
+      case "INVALID_USER":
+      alert("The specified user account does not exist.");
+        console.log("The specified user account does not exist.");
+        break;
+      default:
+      alert("Error logging user in:", error);
+        console.log("Error logging user in:", error);
+    }
+      } 
+      else 
+      {
+      console.log("successfully Authenticated", authData);
+      }
+          });
+        }      
+      });
+var isNewUser = true;
+myDataRef.onAuth(function(authData) {
+  if (authData && isNewUser) {
+    // save the user's profile into the database so we can list users,
+    // use them in Security and Firebase Rules, and show profiles
+    myDataRef.child("users").child(authData.uid).set({
+      provider: authData.provider,
+      name: getName(authData),
+      u_role: 1
+    });
+    console.log(authData);
+  }
+var ref = new Firebase("https://crackling-torch-6492.firebaseio.com/users");
+  ref.on("value", function(snapshot) {
+  console.log(snapshot.val());
+  return snapshot;
+});
+});
+// find a suitable name based on the meta info given by each provider
+function getName(authData) {
+  switch(authData.provider) {
+     case 'password':
+       return authData.password.email.replace(/@.*/, '');
+       case 'facebook':
+       return authData.facebook.displayName;
+  }
+  alert(authData.name);
+}
+
+
+
+
+
+  })
 sampleApp.controller('mapController', function($scope) {
 
 
