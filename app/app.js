@@ -26,18 +26,15 @@ sampleApp.config(['$routeProvider',
           templateUrl: 'view/AddParty.html',
           controller: 'partyController'
         }).
+        when('/PartyAgenda',{
+          templateUrl:'view/partyAgenda.html'
+        }).
       otherwise({
         redirectTo: '/Home'
       });
 }]);
  
- 
-sampleApp.controller('mainController', function($scope) {
-
-});
-
-
- 
+  
 sampleApp.controller('mapController', function($scope) {
 
 
@@ -362,7 +359,6 @@ sampleApp.controller('partyController', function($scope) {
 
  var myDataRef = new Firebase('https://crackling-torch-6492.firebaseio.com/');
 function addP(Adresje){
-$("#partyAdd").on("click", function(){
           var uid = Math.floor((Math.random() * 1000000000000) + 1);
           var feestNaam = $('#feestNaam').val();
           var organisator= $('#organisator').val(); 
@@ -370,10 +366,8 @@ $("#partyAdd").on("click", function(){
           var Longitude = $('#latval').val();
           var Datum =$('#datum').val();
           var Adres = Adresje;
-          alert(Adresje);
 
     myDataRef.child("feestjes").child(uid).set({
-      details:{
       name: feestNaam,
       organisor: organisator,
       lat: Latitude,
@@ -381,7 +375,7 @@ $("#partyAdd").on("click", function(){
       date:Datum,
       adres: Adres
 
-    }
+    
     
     }, function(error, partyData){;
           if (error) 
@@ -393,7 +387,6 @@ $("#partyAdd").on("click", function(){
       alert("Party created", partyData)
       }
     });
-});
 
     var json = (function () { 
             var json = null; 
@@ -407,9 +400,9 @@ $("#partyAdd").on("click", function(){
                 return json;
          })();
 $scope.json = json;
+console.log($scope.json);
 }
 
-console.log($scope.json);
 
 
       function geocodeLatLng(geocoder, map, infowindow) {
@@ -427,8 +420,8 @@ console.log($scope.json);
               });
               infowindow.setContent(results[1].formatted_address);
               infowindow.open(map, marker);
-               a= results[1].formatted_address;
-              addP(a);
+               
+              addP(results[1].formatted_address);
             } else {
               window.alert('No results found');
             }
@@ -437,9 +430,6 @@ console.log($scope.json);
           }
         });
       }
-
-
-
 
 var gmapdata;
 var gmapmarker;
