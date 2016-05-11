@@ -446,6 +446,12 @@ function if_gmap_init()
         document.getElementById('partyAdd').addEventListener('click', function() {
           geocodeLatLng(geocoder, gmapdata, infowindow);
         });
+        $('#organisator').keypress(function (e) {
+        if (e.keyCode == 13) 
+        {
+           geocodeLatLng(geocoder, gmapdata, infowindow);
+         }
+         });
       
   var curpoint = new google.maps.LatLng(def_latval,def_longval);
 
