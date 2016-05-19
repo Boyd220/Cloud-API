@@ -286,9 +286,6 @@ loadMarkers();
         var ref = new Firebase("https://crackling-torch-6492.firebaseio.com/feestjes");
 // Retrieve new posts as they are added to our database
 ref.on("child_added", function(snapshot, prevChildKey) {
-  var newPost = snapshot.val();
-  console.log("Lat: " + newPost.lat);
-  
 
 
         var markerPositionDour = new google.maps.LatLng(50.39583, 3.77792);
@@ -467,7 +464,6 @@ initAutocomplete();
 
   });
 var count =0;
-var totaal;
 sampleApp.controller('partyController', function($scope) {
 var bestaat;
  var myDataRef = new Firebase('https://crackling-torch-6492.firebaseio.com/');
@@ -479,16 +475,14 @@ function addP(Adresje){
           var Longitude = $('#latval').val();
           var Datum =$('#datum').val();
           var Adres = Adresje;
-console.log(Datum+1);
 myDataRef.once("value", function(snapshot) {
 bestaat = snapshot.child("feestjes").child(Datum).exists();
       if (bestaat) 
       {
         count++;
-        totaal+count;
-        console.log(count, totaal);
       myDataRef.child("feestjes").child(Datum+" " + totaal).set({
       name: feestNaam,
+      date: Datum,
       organisor: organisator,
       lat: Latitude,
       lng: Longitude,
@@ -511,6 +505,7 @@ bestaat = snapshot.child("feestjes").child(Datum).exists();
       if(!bestaat){
             myDataRef.child("feestjes").child(Datum).set({
       name: feestNaam,
+      date:Datum,
       organisor: organisator,
       lat: Latitude,
       lng: Longitude,

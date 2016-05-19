@@ -76,11 +76,8 @@
           if (events.length > 0) {
             for (i = 0; i < events.length; i++) {
               var event = events[i];
-              var when = event.start.dateTime;
-              if (!when) {
-                when = event.start.date;
-              }
-              appendPre(event.summary + ' (' + when + ')')
+              
+              appendPre("Name event: " + event.summary +", Name organisor: "+ event.description+ ", Date event: " +  event.start.date + ", Location event: " + event.location + "\n");
             }
           } else {
             appendPre('No upcoming events found.');
@@ -92,35 +89,32 @@ var url = new Firebase("https://crackling-torch-6492.firebaseio.com/");
 
 function addEvent(){
 
-var adres;
-    url.child("feestjes/648160716/date").on("value", function(snapshot){
-adres = snapshot.val();
+           var Datum =$('#datumAgenda').val();
+
+    url.child("feestjes/"+Datum).on("value", function(snapshot){
+var bla = snapshot.val();
+var sum = bla.name;
+var org = bla.organisor;
+var adr = bla.adres;
+var dat = bla.date;
+
+a(adr,sum,org,dat)
 }, function(err){
   console.log("Faal" + err.code);
 });
+}
+
+function a(adres, summ, organ, Datum){
+  console.log(organ);
 var event = {
-  'summary': 'Piet event',
+  'summary': summ,
   'location': adres,
-  'description': 'Pietjeeeeee',
+  'description': organ,
   'start': {
-    'dateTime': '2017-05-28'
+    'date': Datum
   },
   'end': {
-    'dateTime': '2017-05-28'
-  },
-  'recurrence': [
-    'RRULE:FREQ=DAILY;COUNT=2'
-  ],
-  'attendees': [
-    {'email': 'lpage@example.com'},
-    {'email': 'sbrin@example.com'}
-  ],
-  'reminders': {
-    'useDefault': false,
-    'overrides': [
-      {'method': 'email', 'minutes': 24 * 60},
-      {'method': 'popup', 'minutes': 10}
-    ]
+    'date': Datum
   }
 };
 
@@ -150,6 +144,11 @@ request.execute(function(event) {
  </script>
  <script src="https://apis.google.com/js/client.js?onload=checkAuth">
     </script>
+    <br>
+    <form name="feestjes_form" class="form-horizontal" role="form" novalidate>
+        <input type="date" class="form-control" id="datumAgenda" name="datum" placeholde="DD/MM/YYYY"/>
+        </form>
+        <br>
     <div id="authorize-div" style="display: none">
       <span>Authorize access to Google Calendar API</span>
       <!--Button for the user to click to initiate auth sequence -->
