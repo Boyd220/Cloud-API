@@ -6,9 +6,6 @@ var sampleApp = angular.module('sampleApp', []);
 sampleApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
-      when('/Home', {
-        templateUrl: 'view/home.php',
-    }).
       when('/Map', {
         templateUrl: 'view/map.php',
         controller: 'mapController'
@@ -29,7 +26,7 @@ sampleApp.config(['$routeProvider',
           templateUrl:'view/partyAgenda.html'
         }).
       otherwise({
-        redirectTo: '/Home'
+        redirectTo: '/Map'
       });
 }]);
  
@@ -469,8 +466,10 @@ markerRW = new google.maps.Marker({
 initAutocomplete();
 
   });
+var count =0;
+var totaal;
 sampleApp.controller('partyController', function($scope) {
-
+var bestaat;
  var myDataRef = new Firebase('https://crackling-torch-6492.firebaseio.com/');
 function addP(Adresje){
           var uid = Math.floor((Math.random() * 1000000000000) + 1);
@@ -480,13 +479,19 @@ function addP(Adresje){
           var Longitude = $('#latval').val();
           var Datum =$('#datum').val();
           var Adres = Adresje;
-
-    myDataRef.child("feestjes").child(uid).set({
+console.log(Datum+1);
+myDataRef.once("value", function(snapshot) {
+bestaat = snapshot.child("feestjes").child(Datum).exists();
+      if (bestaat) 
+      {
+        count++;
+        totaal+count;
+        console.log(count, totaal);
+      myDataRef.child("feestjes").child(Datum+" " + totaal).set({
       name: feestNaam,
       organisor: organisator,
       lat: Latitude,
       lng: Longitude,
-      date:Datum,
       adres: Adres
 
     
@@ -501,6 +506,30 @@ function addP(Adresje){
       alert("Party created", partyData)
       }
     });
+      }
+
+      if(!bestaat){
+            myDataRef.child("feestjes").child(Datum).set({
+      name: feestNaam,
+      organisor: organisator,
+      lat: Latitude,
+      lng: Longitude,
+      adres: Adres
+
+    
+    
+    }, function(error, partyData){;
+          if (error) 
+      {
+        console.log("Error creating party:", error);
+      } 
+      else 
+      {
+      alert("Party created", partyData)
+      }
+    });
+      }
+});
 
     var json = (function () { 
             var json = null; 
