@@ -24,6 +24,9 @@ sampleApp.config(['$routeProvider',
         }).
         when('/PartyAgenda',{
           templateUrl:'view/partyAgenda.html'
+        }).        
+        when('/Eventlist',{
+          templateUrl:'view/allEvents.html'
         }).
       otherwise({
         redirectTo: '/Map'
@@ -480,7 +483,7 @@ bestaat = snapshot.child("feestjes").child(Datum).exists();
       if (bestaat) 
       {
         count++;
-      myDataRef.child("feestjes").child(Datum+" " + totaal).set({
+      myDataRef.child("feestjes").child("date").child(Datum+" " + totaal).set({
       name: feestNaam,
       date: Datum,
       organisor: organisator,
@@ -503,7 +506,7 @@ bestaat = snapshot.child("feestjes").child(Datum).exists();
       }
 
       if(!bestaat){
-            myDataRef.child("feestjes").child(Datum).set({
+            myDataRef.child("feestjes").child("date").child(Datum).set({
       name: feestNaam,
       date:Datum,
       organisor: organisator,

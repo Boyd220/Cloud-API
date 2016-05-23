@@ -6,6 +6,5 @@
           data-description="Premium account"
           data-amount="1000"
           data-locale="auto"
-    	  data-image="https://38.media.tumblr.com/avatar_0ff21e4cd782_128.png"></script>
+        data-image="https://38.media.tumblr.com/avatar_0ff21e4cd782_128.png"></script>
 </form>
-

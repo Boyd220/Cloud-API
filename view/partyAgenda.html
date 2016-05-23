@@ -91,7 +91,7 @@ function addEvent(){
 
            var Datum =$('#datumAgenda').val();
 
-    url.child("feestjes/"+Datum).on("value", function(snapshot){
+    url.child("feestjes").child("date/"+Datum).on("value", function(snapshot){
 var bla = snapshot.val();
 var sum = bla.name;
 var org = bla.organisor;
@@ -146,7 +146,7 @@ request.execute(function(event) {
     </script>
     <br>
     <form name="feestjes_form" class="form-horizontal" role="form" novalidate>
-        <input type="date" class="form-control" id="datumAgenda" name="datum" placeholde="DD/MM/YYYY"/>
+        <input style="font-size:150%;" type="date" class="form-control" id="datumAgenda" name="datum" placeholde="DD/MM/YYYY"/>
         </form>
         <br>
     <div id="authorize-div" style="display: none">
@@ -156,7 +156,7 @@ request.execute(function(event) {
         Authorize
       </button>
     </div>
-    <pre id="output"></pre>
+    <pre style="font-size:150%;" id="output"></pre>
           <button id="add-button" onclick="addEvent()">
         Add event
       </button>

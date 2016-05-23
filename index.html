@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="css/main.css">
+        <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
   </head>
 
   <body ng-cloak="">
@@ -33,6 +34,7 @@
                 <li><a class="active press" href="#Login">Login</a></li>
                 <li><a class="active press" href="#Premium">Premium</a></li>
                 <li><a class="active press" href="#AddParty">Add a party</a></li>
+                <li><a class="active press" href="#Eventlist">Eventlist</a></li>
                 <li><a class="active press" href="#PartyAgenda">Partyagenda</a></li>
             </ul>           
           </div>
@@ -56,6 +58,8 @@
   <script src="js/ie10-viewport-bug-workaround.js"></script>
 <!--Local javascript files-->
     <script src="app/app.js"></script>
+    <script src="https://apis.google.com/js/client.js?onload=checkAuth">
+    </script>
 
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1RW7LQHfZwuwFw7FOV4jDjnaBFA1DIQo&libraries=places"
          async defer></script>
