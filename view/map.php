@@ -1,14 +1,13 @@
-<div class="col-md-3">
- 	<button type="button" style="margin-top: 2em;" id="btnToggles" class="btn btn-danger fa">Toggle map</button>
- 	<br>
- 	<button type="button" style="margin-top: 2em;" id="btnToggles" class="btn btn-danger fa">Login user</button>
- 	<br>
- 	<button type="button" style="margin-top: 2em;" id="btnToggles" class="btn btn-danger fa">Login party organizer</button>
- 	<br>
+    <br>
+    <form name="feestjes_form" class="form-horizontal" role="form" novalidate>
+        <input style="font-size:150%;" type="date" class="form-control" id="datumAgendaMap" name="datum" placeholde="DD/MM/YYYY"/>
+        </form>
 
+       <button id="add-button" ng-click="newMarker();">
+        Add event
+      </button>
 
- </div>
-<div class="col-md-9 vertical-center">
+<div class="vertical-center">
       <input id="pac-input" class="controls" type="text" placeholder="Search Box">
       <div style="margin-top:5em;" id="map"></div>
 </div>

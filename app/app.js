@@ -1,9 +1,7 @@
-//Define an angular module for our app
-var sampleApp = angular.module('sampleApp', []); 
-//Define Routing for app
-//Uri /AddNewOrder -> template add_order.html and Controller AddOrderController
-//Uri /ShowOrders -> template show_orders.html and Controller AddOrderController
-sampleApp.config(['$routeProvider',
+var feestApp = angular.module('feestApp', []); 
+var myDataRef = new Firebase('https://crackling-torch-6492.firebaseio.com/');
+var authenticated = false;
+feestApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/Map', {
@@ -15,8 +13,7 @@ sampleApp.config(['$routeProvider',
         controller: 'userAuthController'
       }).
         when('/Premium', {
-        templateUrl: 'premium.php',
-        authenticate: true
+        templateUrl: 'premium.php'
       }).
         when('/AddParty',{
           templateUrl: 'view/AddParty.html',
@@ -33,21 +30,24 @@ sampleApp.config(['$routeProvider',
       });
 }]);
  
-  sampleApp.controller('userAuthController', function($scope){
+  feestApp.controller('userAuthController', function($scope){
 
-    var myDataRef = new Firebase('https://crackling-torch-6492.firebaseio.com/');
-          $('#id').on('click', function(){
-myDataRef.authWithOAuthPopup("facebook", function(error, authData) {
-  if (error) 
-  {
-    console.log("Login Failed!", error);
-  } 
-  else 
-  {
-    console.log("Authenticated successfully with payload:", authData);
-  }
-});
-});
+          $('#id').on('click', function()
+          {
+            myDataRef.authWithOAuthPopup("facebook", function(error, authData) 
+            {
+              if (error) 
+              {
+                console.log("Login Failed!", error);
+              } 
+              else 
+              {
+                console.log("Authenticated successfully with payload:", authData);
+                    alert("Logged in with facebook!" );
+                    authenticated =true;
+              }
+          });
+        });
           myDataRef.onAuth(authDataCallback);
       $('#passwordInput1').keypress(function (e) {
         if (e.keyCode == 13) {
@@ -63,7 +63,7 @@ myDataRef.authWithOAuthPopup("facebook", function(error, authData) {
       else 
       {
       console.log("Successfully created user account with uid:", userData.email);
-      alert("Succesvol account aangemaakt.");
+         alert("Logged in with email");
 
       }
 
@@ -71,23 +71,31 @@ myDataRef.authWithOAuthPopup("facebook", function(error, authData) {
         }      
       });
 
-      function authDataCallback(authData) {
-  if (authData) {
-    console.log("User " + authData.uid + " is logged in with " + authData.provider);
-  } else {
-    console.log("User is logged out");
-  }
-}
-    $("#logout").on("click", function(){
-      myDataRef.unauth();
-      alert("Logged out");
-    })
+      function authDataCallback(authData) 
+      {
+        if (authData) 
+        {
+        console.log("User " + authData.uid + " is logged in with " + authData.provider);
+        authenticated=true;
+        } 
+        else 
+        {
+          console.log("User is logged out");
+        }
+      }
+
+      $("#logout").on("click", function()
+      {
+        myDataRef.unauth();
+        alert("Logged out");
+      });
+
       $('#passwordInput').keypress(function (e) {
         if (e.keyCode == 13) {
           var email = $('#emailInput').val();
           var password = $('#passwordInput').val(); 
           myDataRef.authWithPassword({email: email, password: password}, 
-            function (error, authData){             
+    function (error, authData){             
       if (error) 
       {
         switch (error.code) {
@@ -110,30 +118,31 @@ myDataRef.authWithOAuthPopup("facebook", function(error, authData) {
       } 
       else 
       {
-      console.log("successfully Authenticated", authData);
-      }
+        console.log("successfully Authenticated", authData);
+          myDataRef.once("value", function(snapshot) 
+          {
+          var b = snapshot.child("users").child(authData.uid).exists();
+          newUser(b);
           });
-        }      
-      });
-var isNewUser = true;
+        }
+    });
+  }      
+});
+
+
+function newUser(newU){
 myDataRef.onAuth(function(authData) {
-  if (authData && isNewUser) {
-    // save the user's profile into the database so we can list users,
-    // use them in Security and Firebase Rules, and show profiles
+  if (authData && newU==false) {
+
     myDataRef.child("users").child(authData.uid).set({
       provider: authData.provider,
-      name: getName(authData),
-      u_role: 1
+      name: getName(authData)
     });
     console.log(authData);
   }
-var ref = new Firebase("https://crackling-torch-6492.firebaseio.com/users");
-  ref.on("value", function(snapshot) {
-  console.log(snapshot.val());
-  return snapshot;
 });
-});
-// find a suitable name based on the meta info given by each provider
+}
+
 function getName(authData) {
   switch(authData.provider) {
      case 'password':
@@ -144,80 +153,26 @@ function getName(authData) {
   alert(authData.name);
 }
 
+})
+feestApp.controller('mapController', function($scope) {
 
-
-
-
-  })
-sampleApp.controller('mapController', function($scope) {
-
-
-      // This example adds a search box to a map, using the Google Place Autocomplete
-      // feature. People can enter geographical searches. The search box will return a
-      // pick list containing a mix of places and predicted search terms.
-
-      // This example requires the Places library. Include the libraries=places
-      // parameter when you first load the API. For example:
-      // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-var style_festival = [
-  {
-    "featureType": "poi",
-    "stylers": [
-      { "lightness": 11 },
-      { "color": "#fff000" },
-      { "visibility": "on" }
-    ]
-  },{
-    "featureType": "road",
-    "stylers": [
-      { "color": "#000000" },
-      { "visibility": "on" }
-    ]
-  },{
-    "featureType": "landscape",
-    "stylers": [
-      { "color": "#ff0000" },
-      { "visibility": "on" }
-    ]
-  },{
-    "featureType": "water",
-    "stylers": [
-      { "color": "#37eb17" },
-      { "hue": "#005eff" },
-      { "visibility": "on" }
-    ]
-  }
-];
-
-
-//Create the variable for the main map itself.
 var map;
 
 
       function initAutocomplete() {
-        var styled_festival = new google.maps.StyledMapType(style_festival, {name: "Festival style"});
 
-//Create the variables that will be used within the map configuration options.
-//The latitude and longitude of the center of the map.
 var festivalMapCenter = new google.maps.LatLng(50.7686218, 4.4);
-//The degree to which the map is zoomed in. This can range from 0 (least zoomed) to 21 and above (most zoomed).
 var festivalMapZoom = 9;
-//The max and min zoom levels that are allowed.
 var festivalMapZoomMax = 13;
 var festivalMapZoomMin = 8;
 
-//These options configure the setup of the map. 
 var festivalMapOptions = { 
       center: festivalMapCenter, 
           zoom: festivalMapZoom,
       maxZoom:festivalMapZoomMax,
       minZoom:festivalMapZoomMin,
-      //Turn off the map controls as we will be adding our own later.
       panControl: false,
-      mapTypeControl: false,
-       mapTypeControlOptions: {
-        mapTypeIds: [ 'map_styles_festival']
-       }
+      mapTypeControl: false
 };
 map = new google.maps.Map(document.getElementById("map"), festivalMapOptions); 
 
@@ -225,14 +180,11 @@ var input = document.getElementById('pac-input');
         var searchBox = new google.maps.places.SearchBox(input);
         map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
-        // Bias the SearchBox results towards current map's viewport.
         map.addListener('bounds_changed', function() {
           searchBox.setBounds(map.getBounds());
         });
 
         var markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
         searchBox.addListener('places_changed', function() {
           var places = searchBox.getPlaces();
 
@@ -240,11 +192,7 @@ var input = document.getElementById('pac-input');
             return;
           }
 
-          // Clear out the old markers.
-          markers.forEach(function(marker) {
-            marker.setMap(null);
-          });
-          markers = [];
+
 
           // For each place, get the icon, name and location.
           var bounds = new google.maps.LatLngBounds();
@@ -275,23 +223,62 @@ var input = document.getElementById('pac-input');
           map.fitBounds(bounds);
         });
 
-//Assigning the two map styles defined above to the map.
-map.mapTypes.set('map_styles_festival', styled_festival);
-map.setMapTypeId('map_styles_festival');
-
-//Calls the function below to load up all the map markers and pop-up boxes.
 loadMarkers();
         
       }
 
-      function loadMarkers(){
+     
 
-        var ref = new Firebase("https://crackling-torch-6492.firebaseio.com/feestjes");
-// Retrieve new posts as they are added to our database
-ref.on("child_added", function(snapshot, prevChildKey) {
+
+function loadMarkers()
+{
+
+
+
+/*
+var markerPositionCustom = new google.maps.LatLng(parseFloat(bla.lat), parseFloat(bla.lng));
+
+
+var markerIconCustom = {
+ url: 'images/wifi.png',
+ //The size image file.
+ size: new google.maps.Size(32,37),
+ //The point on the image to measure the anchor from. 0, 0 is the top left.
+ origin: new google.maps.Point(0, 0),
+ //The x y coordinates of the anchor point on the marker. e.g. If your map marker was a drawing pin then the anchor would be the tip of the pin.
+ anchor: new google.maps.Point(189, 116)
+};
+
+
+var markerShapeCustom = {
+ coord: [12,4,216,22,212,74,157,70,184,111,125,67,6,56],
+ type: 'poly'
+};     
+
+
+markerCustom = new google.maps.Marker({
+ //uses the position set above.
+ position: markerPositionCustom,
+ //adds the marker to the map.
+ map: map,
+ title: bla.name,
+  icon: markerIconCustom,
+ //assigns the icon shape set above to the marker.
+ shape: markerShapeCustom,
+ //sets the z-index of the map marker.
+ zIndex:102
+});
+});*/
+
+
+
+
+
+
 
 
         var markerPositionDour = new google.maps.LatLng(50.39583, 3.77792);
+
 
 
 var markerIconDour = {
@@ -460,16 +447,14 @@ markerRW = new google.maps.Marker({
  //sets the z-index of the map marker.
  zIndex:102
 });
-});
       };
 
 initAutocomplete();
 
   });
 var count =0;
-sampleApp.controller('partyController', function($scope) {
+feestApp.controller('partyController', function($scope) {
 var bestaat;
- var myDataRef = new Firebase('https://crackling-torch-6492.firebaseio.com/');
 function addP(Adresje){
           var uid = Math.floor((Math.random() * 1000000000000) + 1);
           var feestNaam = $('#feestNaam').val();
@@ -581,7 +566,8 @@ var def_longval = 4.4029;
 var def_latval = 51.2192;
 
 function if_gmap_init()
-{ var geocoder = new google.maps.Geocoder;
+{ 
+  var geocoder = new google.maps.Geocoder;
         var infowindow = new google.maps.InfoWindow;
 
         document.getElementById('partyAdd').addEventListener('click', function() {
@@ -606,6 +592,8 @@ function if_gmap_init()
           map: gmapdata,
           position: curpoint
         });
+
+
 
   infoWindow = new google.maps.InfoWindow;
   google.maps.event.addListener(gmapdata, 'click', function(event) {
