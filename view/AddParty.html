@@ -1,19 +1,30 @@
-  <h1 style="text-align: center;">Add a new party</h1>
+<h1 style="text-align: center;">Add or delete a party</h1>
+
+ <label for="add" class="btn btn-default active">
+    <input type="radio" checked=""  id="add" name="content" ng-model="content" value="add" aria-label="Add">Add
+  </label>
+
+ <label for="del" class="btn btn-default">
+    <input type="radio" id="del" name="content" ng-model="content" value="del" aria-label="Del">Delete
+  </label>
+       <button ng-show="content =='add'" type="button" id="partyAdd" class="btn btn-success" ng-click="if_gmap_loadpicker();">Add party</button>
+ <br>
+ <br>
+ <button ng-show="content == 'del'" type="button" id="partyDelete" class="btn btn-warning" ng-click="partyDelete();">Delete party</button>
+ <br>
 <form name="feestjes_form" class="form-horizontal" role="form" novalidate>
-        <input type="date" class="form-control" id="datum" name="datum" placeholde="DD/MM/YYYY"/> 
+        <input type="date" ng-model="datum" class="form-control" id="datum" name="datum" placeholde="DD/MM/YYYY"/> 
          <br>
-                <input type="text" class="form-control" name="FeestNaam" placeholder="FEESTNAAM" id="feestNaam">
+                <input ng-show="content =='add'" type="text" class="form-control" name="FeestNaam" placeholder="FEESTNAAM" id="feestNaam">
                 <br>
-                <input type="text" class="form-control" name="organisator" placeholder="ORGANISATOR" id="organisator">
+                <input ng-show="content =='add'"" type="text" class="form-control" name="organisator" placeholder="ORGANISATOR" id="organisator">
 <br>
 
- <button type="button" id="partyAdd" class="btn btn-success" ng-click="if_gmap_loadpicker();">Add party</button>
- <br>
-              <input style="display: none;" size=10 type=text value="4.4029 " id="longval">
+              <input ng-show="content =='add'" class="form-control" style="display: none;" size=10 type=text value="4.4029 " id="longval">
+              <br>
+              <input ng-show="content =='add'" class="form-control" style="display: none;" size=10 type=text value="51.2192" id="latval">
 
-              <input style="display: none;" size=10 type=text value="51.2192" id="latval">
-
-          <div style="    width: 60em;
+          <div ng-show="content=='add'||'del'" style="width: 60em;
     height: 45em;
     background-color: #CCC;
     margin-left: auto;
@@ -22,5 +33,4 @@
 
         </form>
 
-  
 

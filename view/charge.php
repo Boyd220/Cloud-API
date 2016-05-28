@@ -1,5 +1,5 @@
 <?php
-  require_once('/api/config.php');
+  require_once('../api/config.php');
   const DEFAULT_URL = 'https://crackling-torch-6492.firebaseio.com/';
 const DEFAULT_TOKEN = '8lX9W8YflYrS7k2ou3UFw5ZtotDRbX143cNffzFT';
 const DEFAULT_PATH = '/premium';

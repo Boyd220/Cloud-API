@@ -1,6 +1,6 @@
 var feestApp = angular.module('feestApp', []); 
 var myDataRef = new Firebase('https://crackling-torch-6492.firebaseio.com/');
-var authenticated = false;
+var authenticated;
 feestApp.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
@@ -13,7 +13,7 @@ feestApp.config(['$routeProvider',
         controller: 'userAuthController'
       }).
         when('/Premium', {
-        templateUrl: 'premium.php'
+        templateUrl: 'view/premium.php'
       }).
         when('/AddParty',{
           templateUrl: 'view/AddParty.html',
@@ -222,59 +222,12 @@ var input = document.getElementById('pac-input');
           });
           map.fitBounds(bounds);
         });
-
 loadMarkers();
         
       }
 
-     
-
-
 function loadMarkers()
 {
-
-
-
-/*
-var markerPositionCustom = new google.maps.LatLng(parseFloat(bla.lat), parseFloat(bla.lng));
-
-
-var markerIconCustom = {
- url: 'images/wifi.png',
- //The size image file.
- size: new google.maps.Size(32,37),
- //The point on the image to measure the anchor from. 0, 0 is the top left.
- origin: new google.maps.Point(0, 0),
- //The x y coordinates of the anchor point on the marker. e.g. If your map marker was a drawing pin then the anchor would be the tip of the pin.
- anchor: new google.maps.Point(189, 116)
-};
-
-
-var markerShapeCustom = {
- coord: [12,4,216,22,212,74,157,70,184,111,125,67,6,56],
- type: 'poly'
-};     
-
-
-markerCustom = new google.maps.Marker({
- //uses the position set above.
- position: markerPositionCustom,
- //adds the marker to the map.
- map: map,
- title: bla.name,
-  icon: markerIconCustom,
- //assigns the icon shape set above to the marker.
- shape: markerShapeCustom,
- //sets the z-index of the map marker.
- zIndex:102
-});
-});*/
-
-
-
-
-
-
 
 
         var markerPositionDour = new google.maps.LatLng(50.39583, 3.77792);
@@ -454,9 +407,12 @@ initAutocomplete();
   });
 var count =0;
 feestApp.controller('partyController', function($scope) {
+
+$scope.partyDelete = function(Datum){
+myDataRef.child("feestjes").child("date").child(Datum).remove();
+};
 var bestaat;
 function addP(Adresje){
-          var uid = Math.floor((Math.random() * 1000000000000) + 1);
           var feestNaam = $('#feestNaam').val();
           var organisator= $('#organisator').val(); 
           var Latitude = $('#longval').val();
@@ -513,20 +469,6 @@ bestaat = snapshot.child("feestjes").child(Datum).exists();
     });
       }
 });
-
-    var json = (function () { 
-            var json = null; 
-                $.ajax({ 
-                    'async': false, 
-                    'global': true, 
-                    'url': "http://localhost:3000/", 
-                    'dataType': "json", 
-                    'success': function (data) {
-                     json = data; } }); 
-                return json;
-         })();
-$scope.json = json;
-console.log($scope.json);
 }
 
 

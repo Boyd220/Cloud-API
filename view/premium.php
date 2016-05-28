@@ -1,6 +1,6 @@
-<?php require_once('api/config.php'); ?>
+<?php require_once('../api/config.php'); ?>
 
-<form style="text-align: center; margin-top: 10em" action="charge.php" method="post">
+<form style="text-align: center; margin-top: 10em" action="../Feestjes/view/charge.php" method="post">
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<?php echo $stripe['publishable_key']; ?>"
           data-description="Premium account"
