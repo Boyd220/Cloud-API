@@ -90,6 +90,7 @@ var url = new Firebase("https://crackling-torch-6492.firebaseio.com/");
 function addEvent(){
 
            var Datum =$('#datumAgenda').val();
+           console.log(Datum);
 
     url.child("feestjes").child("date/"+Datum).on("value", function(snapshot){
 var bla = snapshot.val();
@@ -98,13 +99,13 @@ var org = bla.organisor;
 var adr = bla.adres;
 var dat = bla.date;
 
-a(adr,sum,org,dat)
+createEvent(adr,sum,org,dat)
 }, function(err){
   console.log("Faal" + err.code);
 });
 }
 
-function a(adres, summ, organ, Datum){
+function createEvent(adres, summ, organ, Datum){
   console.log(organ);
 var event = {
   'summary': summ,
@@ -146,7 +147,7 @@ request.execute(function(event) {
     </script>
     <br>
     <form name="feestjes_form" class="form-horizontal" role="form" novalidate>
-        <input style="font-size:150%;" type="date" class="form-control" id="datumAgendaMap" name="datum" placeholde="DD/MM/YYYY"/>
+        <input style="font-size:150%;" type="date" class="form-control" id="datumAgenda" name="datum" placeholde="DD/MM/YYYY"/>
         </form>
         <br>
     <div id="authorize-div" style="display: none">

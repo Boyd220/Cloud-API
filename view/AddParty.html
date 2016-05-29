@@ -13,18 +13,18 @@
  <button ng-show="content == 'del'" type="button" id="partyDelete" class="btn btn-warning" ng-click="partyDelete();">Delete party</button>
  <br>
 <form name="feestjes_form" class="form-horizontal" role="form" novalidate>
-        <input type="date" ng-model="datum" class="form-control" id="datum" name="datum" placeholde="DD/MM/YYYY"/> 
+        <input ng-show="content =='add'|| content =='del'" type="date" ng-model="datum" class="form-control" id="datum" name="datum" placeholde="DD/MM/YYYY"/> 
          <br>
                 <input ng-show="content =='add'" type="text" class="form-control" name="FeestNaam" placeholder="FEESTNAAM" id="feestNaam">
                 <br>
-                <input ng-show="content =='add'"" type="text" class="form-control" name="organisator" placeholder="ORGANISATOR" id="organisator">
+                <input ng-show="content =='add'" type="text" class="form-control" name="organisator" placeholder="ORGANISATOR" id="organisator">
 <br>
 
               <input ng-show="content =='add'" class="form-control" style="display: none;" size=10 type=text value="4.4029 " id="longval">
               <br>
               <input ng-show="content =='add'" class="form-control" style="display: none;" size=10 type=text value="51.2192" id="latval">
 
-          <div ng-show="content=='add'||'del'" style="width: 60em;
+          <div ng-show="content=='add'|| content=='del'" style="width: 60em;
     height: 45em;
     background-color: #CCC;
     margin-left: auto;

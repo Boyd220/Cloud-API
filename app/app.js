@@ -228,6 +228,34 @@ loadMarkers();
 
 function loadMarkers()
 {
+  /*
+  Helaas werkt dit stuk code niet naar behoren. Hij zou mijn firebase uit moeten lezen en van ieder feestje een marker moeten voorzien maar weigert dit. Hieronder is mijn laatste poging.
+  Ik begrijp helaas niet goed wat er fout aan is.
+  
+var D = document.getElementById("datumAgendaMap").value();
+*/
+myDataRef.child('feestjes').child("date").child("2016-08-19").on("value", function(snapshot){
+  var data = snapshot.val();
+  var lng = data.lng;
+  var lat = data.lat;
+  var title = data.name;
+var position = lat+","+lng;
+ var latlngStr =position.split(',', 2);
+ var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])}
+var markerpositionCustom = new google.maps.LatLng(latlng.lat, latlng.lng);
+
+var markerShapeCustom = {
+ coord: [12,4,216,22,212,74,157,70,184,111,125,67,6,56],
+ type: 'poly'
+};
+markerpositionCustom = new google.maps.Marker({
+  position: markerpositionCustom,
+  map:map,
+  title: title,
+  shape: markerShapeCustom,
+  zindex: 102
+});
+});
 
 
         var markerPositionDour = new google.maps.LatLng(50.39583, 3.77792);
@@ -405,71 +433,77 @@ markerRW = new google.maps.Marker({
 initAutocomplete();
 
   });
+
+
 var count =0;
 feestApp.controller('partyController', function($scope) {
 
 $scope.partyDelete = function(Datum){
 myDataRef.child("feestjes").child("date").child(Datum).remove();
 };
+
 var bestaat;
-function addP(Adresje){
+function addParty(Adresje)
+  {
           var feestNaam = $('#feestNaam').val();
           var organisator= $('#organisator').val(); 
           var Latitude = $('#longval').val();
           var Longitude = $('#latval').val();
           var Datum =$('#datum').val();
           var Adres = Adresje;
-myDataRef.once("value", function(snapshot) {
-bestaat = snapshot.child("feestjes").child(Datum).exists();
-      if (bestaat) 
-      {
-        count++;
-      myDataRef.child("feestjes").child("date").child(Datum+" " + totaal).set({
-      name: feestNaam,
-      date: Datum,
-      organisor: organisator,
-      lat: Latitude,
-      lng: Longitude,
-      adres: Adres
 
-    
-    
-    }, function(error, partyData){;
-          if (error) 
-      {
-        console.log("Error creating party:", error);
-      } 
-      else 
-      {
-      alert("Party created", partyData)
-      }
-    });
-      }
+          myDataRef.once("value", function(snapshot) {
+          bestaat = snapshot.child("feestjes").child(Datum).exists();
+                  if (bestaat) 
+                  {
+                    count++;
+                  myDataRef.child("feestjes").child("date").child(Datum+" " + totaal).set({
+                  name: feestNaam,
+                  date: Datum,
+                  organisor: organisator,
+                  lat: Latitude,
+                  lng: Longitude,
+                  adres: Adres               
+                },
 
-      if(!bestaat){
-            myDataRef.child("feestjes").child("date").child(Datum).set({
-      name: feestNaam,
-      date:Datum,
-      organisor: organisator,
-      lat: Latitude,
-      lng: Longitude,
-      adres: Adres
+                function(error, partyData)
+                    {
+                      if (error) 
+                      {
+                        console.log("Error creating party:", error);
+                      } 
+                      else 
+                      {
+                      alert("Party created", partyData)
+                      }
+                    });
+                  }
 
-    
-    
-    }, function(error, partyData){;
-          if (error) 
-      {
-        console.log("Error creating party:", error);
-      } 
-      else 
-      {
-      alert("Party created", partyData)
-      }
-    });
-      }
-});
-}
+                  if(!bestaat)
+                  {
+                        myDataRef.child("feestjes").child("date").child(Datum).set({
+                  name: feestNaam,
+                  date:Datum,
+                  organisor: organisator,
+                  lat: Latitude,
+                  lng: Longitude,
+                  adres: Adres
+                  }, 
+
+                function(error, partyData)
+                {
+                      if (error) 
+                  {
+                    console.log("Error creating party:", error);
+                  } 
+                  else 
+                  {
+                  alert("Party created", partyData)
+                  }
+                });
+                  }
+            });
+  }
 
 
 
@@ -489,7 +523,7 @@ bestaat = snapshot.child("feestjes").child(Datum).exists();
               infowindow.setContent(results[1].formatted_address);
               infowindow.open(map, marker);
                
-              addP(results[1].formatted_address);
+              addParty(results[1].formatted_address);
             } else {
               window.alert('No results found');
             }
